@@ -47,10 +47,11 @@ async function downloadFederationTypes(
     if (saved) {
       savedDts.push(targetFile)
       console.log('Saved: ', targetFile)
-      tar.x({
+      await tar.x({
         file: targetFile,
         cwd: outputDir,
       })
+      await fs.remove(targetFile)
     } else {
       console.error('Failed to download remote DTS: ', dtsFileURL)
     }
