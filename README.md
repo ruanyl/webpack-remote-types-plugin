@@ -16,7 +16,7 @@ yarn add webpack-remote-types-plugin
     remotes: {
       app: 'app@http://localhost:9000/remoteEntry.js',
     },
-    outputDir: 'types',
+    outputDir: 'types', // supports [name] as the remote name
     remoteFileName: '[name]-dts.tgz' // default filename is [name]-dts.tgz where [name] is the remote name, for example, `app` with the above setup
   }),
 ```
