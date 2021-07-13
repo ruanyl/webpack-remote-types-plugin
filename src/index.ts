@@ -36,11 +36,12 @@ async function downloadFederationTypes(
 
   for (const [, value] of Object.entries(remotes)) {
     const [moduleName, entryFileURL] = value.split('@')
+    const outputPath = outputDir.replace('[name]', moduleName)
     const dtsFileName = remoteFileName.replace('[name]', moduleName)
     const dtsFileURL = new URL(dtsFileName, entryFileURL).href
-    const targetFile = path.resolve(outputDir, dtsFileName)
+    const targetFile = path.resolve(outputPath, dtsFileName)
 
-    await fs.ensureDir(outputDir)
+    await fs.ensureDir(outputPath)
 
     console.log('Downloading: ', dtsFileURL)
     const saved = await downloadFile(dtsFileURL, targetFile)
@@ -49,7 +50,7 @@ async function downloadFederationTypes(
       console.log('Saved: ', targetFile)
       await tar.x({
         file: targetFile,
-        cwd: outputDir,
+        cwd: outputPath,
       })
       await fs.remove(targetFile)
     } else {
