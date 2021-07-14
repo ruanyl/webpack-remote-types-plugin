@@ -37,9 +37,9 @@ jobs:
         git config --local user.name "Yulong Ruan"
     - name: Tag release
       run: yarn release
+    - name: Push to master
+      run: git push --follow-tags origin master
     - name: Publish to NPM
       run: npm publish --access public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-    - name: Push to master
-      run: git push --follow-tags origin master
