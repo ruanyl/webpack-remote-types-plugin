@@ -1,16 +1,19 @@
 import { Compiler } from 'webpack'
 import { URL } from 'url'
 import fs from 'fs-extra'
+import https from 'https'
 import http from 'http'
 import path from 'path'
 import tar from 'tar'
 
 const cwd = process.cwd()
 
-function downloadFile(url: string, targetPath: string) {
+export function downloadFile(url: string, targetPath: string) {
+  const get = url.includes('https://')? https.get : http.get
+
   return new Promise<boolean>((resolve) => {
     const target = fs.createWriteStream(targetPath)
-    http.get(url, (response) => {
+    get(url, (response) => {
       response
         .pipe(target)
         .on('close', () => {
