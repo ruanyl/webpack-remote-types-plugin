@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.2.5 (2021-07-18)
+
+
+### Features
+
+* support remote types served by https ([#8](https://github.com/ruanyl/webpack-remote-types-plugin/issues/8)) ([4cc8f24](https://github.com/ruanyl/webpack-remote-types-plugin/commit/4cc8f244a7bfc900aad5881021c7030f6bd40ca7)), closes [#7](https://github.com/ruanyl/webpack-remote-types-plugin/issues/7)
+
 ### 0.2.4 (2021-07-13)
 
 
