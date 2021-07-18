@@ -7,7 +7,8 @@
   "scripts": {
     "build": "tsc --declaration",
     "prepublish": "npm run build",
-    "release": "standard-version --releaseCommitMessageFormat 'chore(release): {{currentTag}} [skip ci]'"
+    "release": "standard-version --releaseCommitMessageFormat 'chore(release): {{currentTag}} [skip ci]'",
+    "test": "jest"
   },
   "devDependencies": {
     "@tsconfig/node14": "^1.0.0",
