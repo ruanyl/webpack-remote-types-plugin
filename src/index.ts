@@ -9,7 +9,7 @@ import tar from 'tar'
 const cwd = process.cwd()
 
 export function downloadFile(url: string, targetPath: string) {
-  const get = url.includes('https://')? https.get : http.get
+  const get = url.includes('https://') ? https.get : http.get
 
   return new Promise<boolean>((resolve) => {
     const target = fs.createWriteStream(targetPath)
@@ -70,18 +70,28 @@ interface Options {
 
 export default class WebpackRemoteTypesPlugin {
   options: Options
+  private remotes: Record<string, string> = {}
+  private outputDir: string = ''
+  private remoteFileName: string | undefined
 
   constructor(options: Options) {
     this.options = options
   }
 
   apply(compiler: Compiler) {
-    compiler.hooks.beforeRun.tapPromise('WebpackRemoteTypesPlugin', () => {
-      return downloadFederationTypes(
-        this.options.remotes,
-        path.resolve(cwd, this.options.outputDir),
-        this.options.remoteFileName
-      )
-    })
+    const tapCallback = async () => {
+      const { remotes, remoteFileName, outputDir } = this.options
+      const output = path.resolve(cwd, outputDir)
+      const paramsChanged = this.remotes !== remotes || this.outputDir !== output || this.remoteFileName !== remoteFileName
+      if (paramsChanged) {
+        await downloadFederationTypes(remotes, output, remoteFileName)
+        this.remotes = remotes
+        this.outputDir = output
+        this.remoteFileName = remoteFileName
+      }
+    }
+
+    compiler.hooks.beforeRun.tapPromise('WebpackRemoteTypesPlugin', tapCallback)
+    compiler.hooks.watchRun.tapPromise('WebpackRemoteTypesPlugin', tapCallback)
   }
 }
