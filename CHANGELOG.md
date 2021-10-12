@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.2.7 (2021-10-12)
+
+
+### Bug Fixes
+
+* download on watch run avoiding multiple downloads by simple args memo ([#12](https://github.com/ruanyl/webpack-remote-types-plugin/issues/12)) ([1c1fd5d](https://github.com/ruanyl/webpack-remote-types-plugin/commit/1c1fd5d991bd8f6ae95620e9bb64220655123da4))
+
 ### 0.2.6 (2021-09-02)
 
 ### 0.2.5 (2021-07-18)
